@@ -6,11 +6,11 @@ class TwitterAPIService:
         self.auth = auth
         self.twitterApi = tweepy.API(auth)
 
-    def multipleHashtagsTweetIds(self, hashtags):
+    def multipleHashtagsTweetIds(self, hashtags, geocode=None):
         # .append()doesn't work for dictionaries ...
         tweetIds = set()
         for hashtag in hashtags:
-            tweets = self.twitterApi.search(hashtag, count=30)
+            tweets = self.twitterApi.search(hashtag, count=30, geocode=geocode)
             for tweet in tweets:
                 tweetIds.add(tweet.id)
 
@@ -30,4 +30,7 @@ class TwitterAPIService:
 
     def retweetTweets(self, tweetIds):
         for tweet_id in tweetIds:
-            self.twitterApi.retweet(id=tweet_id)
+            try:
+                self.twitterApi.retweet(id=tweet_id)
+            except tweepy.TweepError as e:
+                print(e)
