@@ -1,7 +1,0 @@
-consumer_key = 'fczpW2oZiNcb3KZj94uVYsivW'
-consumer_secret = 'hOwiS9dQDOI4hxXFkUITIKfQYupuvPDbdACvhcuhseCqk7PCvA'
-access_token = '1327675088796143621-Fd7Iea4rePFuvbvmKvc8qW1No6XUm2'
-access_token_secret = 'GUwH4iT4JxD9ir8dFHklLoDpx0T4fJNoVsmcj4n98jSWU'
-account_sid = 'AC6d4b44f30f569883fe4aaa759810ccda'
-auth_token = 'e695c5feeb70857790154ef780db8fdc'
-phone_number = '+12696123257'
