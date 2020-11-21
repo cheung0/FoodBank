@@ -24,7 +24,7 @@ print('hope this works...')
 # searching for tweet
 hashtags = ["free", "food"]
 
-ETA = enhancedTwitterAPI.EnhancedTwitterApi(twitterApi)
+ETA = enhancedTwitterAPI.EnhancedTwitterApi(auth)
 tweet_ids = ETA.multipleHashtagsTweetIds(hashtags)
 print(tweet_ids)   
 
@@ -32,13 +32,13 @@ print(tweet_ids)
 if not tweet_ids:
     print('API search call didnt work')
 
-# API.update_status
-# While not rate limited by the API, a user is limited in the number of Tweets they can create at a time. If the number of updates posted by the user reaches the current allowed limit this method will return an HTTP 403 error.
+#the function that gets called when there's a new tweet
+def on_status(self, status):
+    print(status.text)
 
-hashtags = ["free", "food"]
 
-ETA = enhancedTwitterAPI.EnhancedTwitterApi(twitterApi)
-tweet_ids = ETA.multipleHashtagsTweetIds(hashtags)
+ETA = enhancedTwitterAPI.EnhancedTwitterApi(auth)
+ETA.startstreamOnKeywords(hashtags, on_status)
 
 # creating a tweet with resources that will help the homeless
 # retweet a tweet with the users
