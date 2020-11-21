@@ -1,0 +1,4 @@
+from twilio.rest import Client
+import config
+
+client = Client(config)
