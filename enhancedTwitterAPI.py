@@ -16,12 +16,14 @@ class EnhancedTwitterApi:
 
         return tweetIds
 
-    #returns a list of Stream objects
+    #returns a stream object
     def startstreamOnKeywords(self, hashtags, on_status):
         # create a stream for every hashtag listed
 
-          myStreamListener = tweepy.StreamListener
-          myStreamListener.on_status = on_status
+        myStreamListener = tweepy.StreamListener
+        myStreamListener.on_status = on_status
 
-          myStream = tweepy.Stream(listener=myStreamListener(), auth=self.auth)
-          myStream.filter(track=hashtags)
+        myStream = tweepy.Stream(listener=myStreamListener(), auth=self.auth)
+        myStream.filter(track=hashtags)
+
+        return myStream
