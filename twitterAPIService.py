@@ -1,7 +1,7 @@
 import tweepy
 
 
-class EnhancedTwitterApi:
+class TwitterAPIService:
     def __init__(self, auth):
         self.auth = auth
         self.twitterApi = tweepy.API(auth)
@@ -16,7 +16,7 @@ class EnhancedTwitterApi:
 
         return tweetIds
 
-    #returns a stream object
+    # returns a stream object
     def startstreamOnKeywords(self, hashtags, on_status):
         # create a stream for every hashtag listed
 
@@ -27,3 +27,7 @@ class EnhancedTwitterApi:
         myStream.filter(track=hashtags)
 
         return myStream
+
+    def retweetTweets(self, tweetIds):
+        for tweet_id in tweetIds:
+            self.twitterApi.retweet(id=tweet_id)

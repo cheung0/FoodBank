@@ -1,6 +1,6 @@
 import tweepy
 import config
-import enhancedTwitterAPI
+import twitterAPIService
 # from twilio.rest import Client
 # use aws rekognition to recognize the words free food in images 
 # setup authentication
@@ -22,10 +22,11 @@ print('hope this works...')
 # https://twitter.com/_MealsOnWheels
 # use twitter usernames that only tweet free shit
 # searching for tweet
-hashtags = ["free", "food"]
+# be careful of the hashtags we put here
+hashtags = ["#freefood"]
 
-ETA = enhancedTwitterAPI.EnhancedTwitterApi(auth)
-tweet_ids = ETA.multipleHashtagsTweetIds(hashtags)
+twitterService = twitterAPIService.TwitterAPIService(auth)
+tweet_ids = twitterService.multipleHashtagsTweetIds(hashtags)
 print(tweet_ids)   
 
 # if twitterApi search call didn't work print helpful error message
@@ -34,15 +35,12 @@ if not tweet_ids:
 
 #the function that gets called when there's a new tweet
 def on_status(self, status):
-    print(status.text)
+    twitterService.retweetTweets([status.id])
 
 
-ETA = enhancedTwitterAPI.EnhancedTwitterApi(auth)
-ETA.startstreamOnKeywords(hashtags, on_status)
+twitterService = twitterAPIService.TwitterAPIService(auth)
+twitterService.startstreamOnKeywords(hashtags, on_status)
 
 # creating a tweet with resources that will help the homeless
 # retweet a tweet with the users
-for tweet_id in tweet_ids:
-    twitterApi.retweet(id=tweet_id)
-
- 
+twitterService.retweetTweets(tweet_ids)
