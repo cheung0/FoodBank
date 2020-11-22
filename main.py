@@ -3,53 +3,36 @@ import config
 import twitterAPIService
 import twilioHandler
 
-# from twilio.rest import Client
-# use aws rekognition to recognize the words free food in images 
-# setup authentication
-auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
-auth.set_access_token(config.access_token, config.access_token_secret)
-twitterApi = tweepy.API(auth)
-print('hope this works...')
-
-# send direct message to food bank church
-# API.send_direct_message
-
-# API.search30day
-
-# maybe break code into different functions so it looks good in the demo
-
-# create streaming bc we need realtime tweets
-# geocode=37.7749,geocode=122.4194,geocode='30mi'
-# geocode='37.7749, 122.4194, 300000000000000mi'
-# https://twitter.com/_MealsOnWheels
-# use twitter usernames that only tweet free shit
-# searching for tweet
-# be careful of the hashtags we put here
-SAN_FRANCISCO_GEOCODE = "37.773972,-122.431297,30mi"
-HASHTAGS = ["#freefood"]
-
-twitterService = twitterAPIService.TwitterAPIService(auth)
-tweet_ids = twitterService.multipleHashtagsTweetIds(HASHTAGS, geocode=SAN_FRANCISCO_GEOCODE)
-print(tweet_ids)
-
-# if twitterApi search call didn't work print helpful error message
-if not tweet_ids:
-    print('API search call didnt work')
-
 
 # the function that gets called when there's a new tweet
 def on_status(self, status):
     twitterService.retweetTweets([status.id])
+    twilioHandler.sendText(status.text, config.my_phone_number)
+
+def searchAndRetweet(twitterService, query, geocode):
+  twitterService = twitterAPIService.TwitterAPIService(auth)
+  tweet_ids = twitterService.multipleHashtagsTweetIds(query, geocode=geocode)
+  print(tweet_ids)
+  twitterService.retweetTweets(tweet_ids)
 
 
-# twitterService = twitterAPIService.TwitterAPIService(auth)
-# twitterService.startstreamOnKeywords(hashtags, on_status)
+# setup authentication
+auth = tweepy.OAuthHandler(config.consumer_key, config.consumer_secret)
+auth.set_access_token(config.access_token, config.access_token_secret)
 
-# creating a tweet with resources that will help the homeless
-# retweet a tweet with the users
-twitterService.retweetTweets(tweet_ids)
+twitterService = twitterAPIService.TwitterAPIService(auth)
 
-phone_numbers = ["+14089307943"]
-example_message = "lmaoooo"
-for phone_number in phone_numbers:
-    twilioHandler.sendText(example_message, phone_number)
+# coordinates and radius
+SAN_FRANCISCO_GEOCODE = "37.773972,-122.431297,100mi"
+
+# include all the hashtags we want to search for
+SEARCH_HASHTAGS = ["freefood"]
+STREAM_QUERY = ["@FoodBankSF0"]
+
+#runs the search function every hour
+searchAndRetweet(twitterService=twitterService, query=SEARCH_HASHTAGS, geocode=SAN_FRANCISCO_GEOCODE)
+
+#starts the stream for the scanning new tweets
+twitterService.startstreamOnKeywords(STREAM_QUERY, on_status)
+
+
