@@ -1,6 +1,7 @@
 import tweepy
 import config
 import twitterAPIService
+import twilioHandler
 
 # from twilio.rest import Client
 # use aws rekognition to recognize the words free food in images 
@@ -47,3 +48,8 @@ def on_status(self, status):
 # creating a tweet with resources that will help the homeless
 # retweet a tweet with the users
 twitterService.retweetTweets(tweet_ids)
+
+phone_numbers = ["+14089307943"]
+example_message = "lmaoooo"
+for phone_number in phone_numbers:
+    twilioHandler.sendText(example_message, phone_number)
