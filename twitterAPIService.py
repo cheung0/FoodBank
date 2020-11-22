@@ -23,7 +23,8 @@ class TwitterAPIService:
             tweets.add(tweet.text)
         return tweets
 
-    # returns a stream object
+    # starts a tweet stream, and returns a stream object
+    # on_status: callback function when there is a new tweet
     def startstreamOnKeywords(self, hashtags, on_status):
         # create a stream for every hashtag listed
 

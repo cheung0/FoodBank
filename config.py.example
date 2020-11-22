@@ -1,0 +1,11 @@
+# twitter api keys
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_token_secret = ''
+
+# twilio api keys
+account_sid = ''
+auth_token = ''
+phone_number = ''
+my_phone_number = ''
