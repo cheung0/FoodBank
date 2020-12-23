@@ -1,5 +1,5 @@
 ## Demo
-![GitHub Logo](/demo.png)
+![GitHub Logo](/screenshot.png)
 
 ## Inspiration
 In San Francisco, 1 out of 10 people live below the poverty line and there are 8,035 homeless people. Those people suffer from hunger, sickness, and many other ill effects. We wanted to help those people. We did the research and found out the biggest problem that they face was not a lack of help. There are plenty of food banks, charities, and homeless shelters. Rather, they didn't know about all these great services. There could be a food bank offering meals and rehabilitation, but they wouldn't know! So, we built FoodBank to help connect those in need with those services.
